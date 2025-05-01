@@ -5,7 +5,7 @@ import (
 )
 
 type Node struct {
-	data int
+	data string
 	next *Node
 }
 
@@ -13,7 +13,7 @@ type LinkedList struct {
 	head *Node
 }
 
-func (list *LinkedList) addNode(value int) {
+func (list *LinkedList) addNode(value string) {
 	temp := list.head
 	new_node := &Node{data: value}
 	if temp == nil {
@@ -33,6 +33,9 @@ func (list *LinkedList) addNode(value int) {
 func (list *LinkedList) displayLinkedList() {
 	temp := list.head
 	for temp != nil {
-		fmt.Printf("%v", temp.data)
+		fmt.Println("->")
+		fmt.Println(temp.data)
+		temp = temp.next
 	}
+	fmt.Println("")
 }
