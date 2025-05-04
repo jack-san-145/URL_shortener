@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Lux URL Shortener</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(145deg, #ffecd2, #fcb69f);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: white;
+      padding:30px 74px 24px 35px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      width: 320px;
+      text-align: center;
+    }
+
+    h2 {
+      margin-bottom: 25px;
+      color: #d64161;
+    }
+
+    .input-group {
+      position: relative;
+      margin-bottom: 18px;
+    }
+
+    .input-group input {
+      width: 100%;
+      padding: 10px 35px 10px 12px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 14px;
+      transition: border 0.2s;
+    }
+
+    .input-group input:focus {
+      border-color: #d64161;
+      outline: none;
+    }
+
+    .input-group i {
+      position:absolute;
+      right: 12px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #d64161;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    button {
+      width: 60%;
+      background: #d64161;
+      color: #fff;
+      padding: 10px;
+      margin-left: 7%;
+      font-size: 15px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #bf3450;
+    }
+
+    input::placeholder {
+      color: #999;
+    }
+    .icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  margin: 0;
+}
+
+.icon-button i {
+  font-size: 1.2rem;
+  color: #d64161;
+  margin-top: 0%;
+}
+#searchUrl{
+  margin-top: 4%;
+}
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Shorten Your Link</h2>
+  
+    <!-- Shorten URL form -->
+    <form action="/URL_shortener/shortURL" method="POST" >
+      <div class="input-group">
+        <input type="text" name="LongURL" id="longUrl" placeholder="Enter long URL">
+      </div>
+  
+      <div class="input-group">
+        <input type="text" id="shortUrl" value="{{.Shorturl}}" placeholder="Short URL" readonly>
+        <i id="copyIcon" class="fa-solid fa-copy" onclick="copyToClipboard()"></i>
+      </div>
+  
+      <button type="submit">Shorten URL</button><br><br>
+    </form>
+  
+    <!-- Search form -->
+    <form action="/URL_shortener/searchURL" method="post">
+      <div class="input-group">
+        <input type="text" id="searchUrl" name="searchQuery" placeholder="Search short URL" required>
+        <button type="submit" class="icon-button" >
+          <i class="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+    </form>
+  </div>
+  
+  
+
+
+<script>
+
+  function copyToClipboard() {
+    const shortUrl = document.getElementById("shortUrl");
+    if (!shortUrl.value) return;
+
+    shortUrl.select();
+    shortUrl.setSelectionRange(0, 99999);
+    navigator.clipboard.writeText(shortUrl.value).then(() => {
+      const icon = document.getElementById("copyIcon");
+      icon.className = "fa-solid fa-check";
+      icon.style.color = "green";
+      setTimeout(() => {
+        icon.className = "fa-solid fa-copy";
+        icon.style.color = "#d64161";
+      }, 1500);
+    });
+  }
+
+</script>
+
+</body>
+</html>

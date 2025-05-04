@@ -1,7 +1,7 @@
 package main
 
 import (
-	"fmt"
+	"net/http"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -9,19 +9,22 @@ import (
 
 var FinalURL string
 
-func searchUrl(shortedURL *string, originalURL *string) {
+func searchUrlHandler(w http.ResponseWriter, r *http.Request) {
+	searchUrl(&shorted_url)
+	http.Redirect(w, r, FinalURL, http.StatusSeeOther)
+
+}
+
+func searchUrl(shortedURL *string) {
 	re := regexp.MustCompile(`\d+`)
 	match_string := re.FindString(*shortedURL)
 	match_int, _ := strconv.Atoi(match_string)
 	index := match_int % 100
-	fmt.Println("index", index)
-	searchFromHashTable(index, originalURL)
-	//redirct the Final url
-	fmt.Println("Final URl - ", FinalURL)
+	searchFromHashTable(index)
 
 }
 
-func searchFromHashTable(index int, originalURL *string) {
+func searchFromHashTable(index int) {
 	var linklist *LinkedList
 	if hashTable[index] == nil {
 		FinalURL = ""
@@ -34,12 +37,13 @@ func searchFromHashTable(index int, originalURL *string) {
 		if list, ok := hashTable[index].(LinkedList); ok {
 			linklist = &list
 		}
-		FinalURL = search(linklist, originalURL)
+		FinalURL = search(linklist)
 	}
 
 }
 
-func search(list *LinkedList, url *string) string {
+func search(list *LinkedList) string {
+	url := &original_url
 	current := list.head
 	list.displayLinkedList()
 	for current != nil {

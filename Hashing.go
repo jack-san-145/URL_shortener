@@ -16,11 +16,10 @@ func hash(URL string) int {
 	return AsciiUrl % 100
 }
 
-func insertToHashtable(URL string) {
+func insertToHashtable(URL string) (string, string) {
 
 	index := hash(URL)
 	shortedURL := generateShortUrl(&AsciiUrl)
-	fmt.Println(shortedURL)
 	if hashTable[index] == nil {
 		hashTable[index] = URL
 
@@ -46,6 +45,6 @@ func insertToHashtable(URL string) {
 		}
 		head.addNode(URL)
 	}
-	searchUrl(&shortedURL, &URL)
+	return shortedURL, URL
 
 }
