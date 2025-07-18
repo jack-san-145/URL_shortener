@@ -3,8 +3,10 @@ package main
 import (
 	"net/http"
 	"reflect"
+
 	"regexp"
 	"strconv"
+
 )
 
 var FinalURL string
