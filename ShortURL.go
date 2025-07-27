@@ -26,7 +26,7 @@ func shortUrlHandler(w http.ResponseWriter, r *http.Request) {
 }
 
 func generateShortUrl(hashedUrl *int) string {
-	shortLink := "shortlink/" + strconv.Itoa(*hashedUrl)
+	shortLink := "http://localhost:8989/shortlink/" + strconv.Itoa(*hashedUrl)
 	return shortLink
 }
 
